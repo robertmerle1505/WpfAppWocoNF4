@@ -1,0 +1,96 @@
+﻿<Window x:Class="WpfAppWoCoNF4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:h="http://helix-toolkit.org/wpf"
+        Title="MainWindow" Height="1484" Width="1600">
+    <Grid Margin="0,0,0,-16">
+        <Button x:Name="XmlFileButton"  Content="Open gbXML bestand" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="XmlFileButton_Click"/>
+        <Label x:Name="FileNameLabel" Content="Label" HorizontalAlignment="Left" Margin="136,10,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+
+        <Label x:Name="LocationLabel" Content="Label" HorizontalAlignment="Left" Margin="136,25,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+
+        <DataGrid x:Name="SpaceDataGrid"
+                  AutoGenerateColumns="False"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"   
+                  Width="485" 
+                  Height="387" 
+                  Margin="10,75,0,0"
+                  SelectionChanged="SpaceDataGrid_SelectionChanged">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Area" Binding="{Binding Area}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Volume" Binding="{Binding Volume}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <h:HelixViewport3D x:Name="viewport" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="517,10,0,0" Height="452" Width="649">
+            <h:SunLight/>
+            <h:DefaultLights/>
+        </h:HelixViewport3D>
+
+        <h:HelixViewport3D x:Name="shellviewport" HorizontalAlignment="Left"  Height="452" Width="649" Margin="517,10,0,0" >
+            <h:SunLight/>
+            <h:DefaultLights/>
+        </h:HelixViewport3D>
+        <StackPanel x:Name="DetailPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,485,0,0" Width="485" Visibility="Visible">
+            <TextBlock Text="Name:" FontWeight="Bold"/>
+            <TextBlock x:Name="NameTextBlock"/>
+            <TextBlock Text="Area:" FontWeight="Bold"/>
+            <TextBlock x:Name="AreaTextBlock"/>
+            <TextBlock Text="Volume:" FontWeight="Bold"/>
+            <TextBlock x:Name="VolumeTextBlock"/>
+            <TextBlock Text="Coordinates:" FontWeight="Bold" Margin="0,10,0,0"/>
+
+            <Grid>
+                <DataGrid x:Name="PointsDataGrid"
+                      AutoGenerateColumns="false"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"   
+                      Width="300" 
+                      Height="200" 
+                      Margin="0,0,0,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="X" Binding="{Binding X}" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Y" Binding="{Binding Y}" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Z" Binding="{Binding Z}" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </Grid>
+
+        </StackPanel>
+        <Button x:Name="ValideerButton" Content="Valideer" HorizontalAlignment="Left" Margin="10,850,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="ValideerButton_OnClick"/>
+
+    </Grid>
+</Window>
