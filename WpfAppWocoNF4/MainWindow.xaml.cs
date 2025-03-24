@@ -1,17 +1,14 @@
-﻿using System.IO;
-using Microsoft.Win32;
-using System.Windows;
+﻿using HelixToolkit.Wpf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Globalization;
-using System.Windows.Media.Media3D;
-using HelixToolkit.Wpf;
-using System.Diagnostics;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using WpfAppWocoNF4.Models;
 
 namespace WpfAppWoCoNF4
@@ -100,7 +97,7 @@ namespace WpfAppWoCoNF4
             Draw(closedShells, viewport);
         }
 
-        private void Draw(IEnumerable<ClosedShell> closedShells, HelixViewport3D currentviewport)
+        private void Draw(IEnumerable<ClosedShell> closedShells, HelixViewport3D currentviewport, int viewportSize = 15)
         {
             currentviewport.Children.Clear();
             List<Point3D> allPoints = new List<Point3D>();
@@ -133,7 +130,6 @@ namespace WpfAppWoCoNF4
                             wireframe.Points.Add(points[p]);
                             wireframe.Points.Add(points[p + 1]);
                         }
-
                     }
                 }
 
@@ -141,7 +137,6 @@ namespace WpfAppWoCoNF4
             }
 
             var viewportChildren = currentviewport.Children.OfType<LinesVisual3D>().SelectMany(c => c.Points);
-
 
             var offsetX = viewportChildren.Min(p => p.X);
             var offsetY = viewportChildren.Min(p => p.Y);
@@ -153,9 +148,8 @@ namespace WpfAppWoCoNF4
             var maxZ = viewportChildren.Max(p => p.Z);
             Debug.WriteLine($"Min: ({offsetX},{offsetY},{offsetZ}), Max: ({maxX},{maxY},{maxZ})");
 
-            
-            var viewportWidth = 15; 
-            var viewportHeight = 15;
+            var viewportWidth = viewportSize; 
+            var viewportHeight = viewportSize;
             var scale = Math.Min(viewportWidth / maxX, viewportHeight / maxY); // * 0.8;
 
             viewportChildren = viewportChildren.Select(p => new Point3D(p.X * scale, p.Y * scale, p.Z * scale));
@@ -193,7 +187,6 @@ namespace WpfAppWoCoNF4
 
                 IEnumerable<ClosedShell> closedShells = new List<ClosedShell> { selected.ClosedShell };
                 Draw(closedShells, shellviewport);
-
             }
         }
 

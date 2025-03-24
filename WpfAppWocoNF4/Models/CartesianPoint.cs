@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace WpfAppWoCoNF4
 {
-
     public class CartesianPoint
     {
         public IEnumerable<Coordinate> Coordinates { get; set; }

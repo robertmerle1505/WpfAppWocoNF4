@@ -8,7 +8,10 @@ namespace WpfAppWocoNF4
         public static double CalculateArea(List<(double X, double Y)> points)
         {
             int n = points.Count;
-            if (n < 3) throw new ArgumentException("At least 3 points are required to form a polygon.");
+            if (n < 3)
+            {
+                throw new ArgumentException("At least 3 points are required to form a polygon.");
+            }
 
             double sum = 0;
             for (int i = 0; i < n; i++)

@@ -61,6 +61,7 @@
     <Compile Include="Calculator.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Models\ClosedShell.cs" />
+    <Compile Include="Models\SpaceViewModel.cs" />
     <Compile Include="Repository.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -76,12 +77,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AnalyticalShell.cs" />
     <Compile Include="Models\CartesianPoint.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\PolyLoop.cs" />
     <Compile Include="Models\ShellGeometry.cs" />
-    <Compile Include="Models\ShellSurface.cs" />
     <Compile Include="Models\Space.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
