@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WpfAppWocoNF4;
 using WpfAppWocoNF4.Models;
 
 namespace WpfAppWoCoNF4
@@ -135,14 +136,26 @@ namespace WpfAppWoCoNF4
         public IEnumerable<SpaceViewModel> GetAllSummerized()
         {
             return _spaces
-                .Select(s => new SpaceViewModel
+                .Select(s =>
                 {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Area = s.Area,
-                    Volume = s.Volume,
-                    ClosedShell = s.ShellGeometry.ClosedShell,
-                    CartesianPoints = s.ShellGeometry.ClosedShell?.PolyLoops.SelectMany(pl => pl.CartesianPoints).ToList()
+                    var closedShellPolyLoops = s.ShellGeometry.ClosedShell?.PolyLoops;
+                    var cartesianPoints = closedShellPolyLoops?.SelectMany(pl => pl.CartesianPoints).ToList();
+                    var Z = cartesianPoints.Select(c => c.Z).FirstOrDefault();
+                    var horizontalPolyloops = closedShellPolyLoops.Where(p => p.CartesianPoints.All(c => c.Z == Z)).ToList();    
+                    var valueTuplesXY = horizontalPolyloops.SelectMany(pl => pl.CartesianPoints).Select(c => (c.X, c.Y)).ToList();
+                    var calculatedArea = Calculator.CalculateArea(valueTuplesXY);
+                    var diffZ = Math.Abs(cartesianPoints.Max(c => c.Z) - cartesianPoints.Min(c => c.Z));
+                    return new SpaceViewModel
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        Area = s.Area,
+                        Volume = s.Volume,
+                        ClosedShell = s.ShellGeometry.ClosedShell,
+                        CartesianPoints = cartesianPoints,
+                        CalculatedArea = calculatedArea,
+                        CalculatedVolume = Calculator.CalculateVolume(valueTuplesXY, diffZ)
+                    };
                 }).ToList();
         }
 
@@ -156,7 +169,8 @@ namespace WpfAppWoCoNF4
         public double Volume { get; internal set; }
         public string Name { get; internal set; }
         public List<CartesianPoint> CartesianPoints { get; set; }
-        public double? CalculatedVolume { get; set; }
+        public double CalculatedArea { get; set; }
+        public double CalculatedVolume { get; set; }
         public ClosedShell ClosedShell { get; set; }
     }
 }

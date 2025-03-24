@@ -52,6 +52,10 @@
             <TextBlock x:Name="AreaTextBlock"/>
             <TextBlock Text="Volume:" FontWeight="Bold"/>
             <TextBlock x:Name="VolumeTextBlock"/>
+            <TextBlock Text="CalculatedArea:" FontWeight="Bold"/>
+            <TextBlock x:Name="CalculatedAreaTextBlock"/>
+            <TextBlock Text="CalculatedVolume:" FontWeight="Bold"/>
+            <TextBlock x:Name="CalculatedVolumeTextBlock"/>
             <TextBlock Text="Coordinates:" FontWeight="Bold" Margin="0,10,0,0"/>
 
             <Grid>

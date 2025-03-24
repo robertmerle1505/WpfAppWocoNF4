@@ -186,6 +186,8 @@ namespace WpfAppWoCoNF4
                 NameTextBlock.Text = selected.Name;
                 AreaTextBlock.Text = selected.Area.ToString();
                 VolumeTextBlock.Text = selected.Volume.ToString();
+                CalculatedAreaTextBlock.Text = selected.CalculatedArea.ToString();
+                CalculatedVolumeTextBlock.Text = selected.CalculatedVolume.ToString();
                 PointsDataGrid.ItemsSource = selected.CartesianPoints?.Select(c => new { X = c.X, Y = c.Y, Z = c.Z });
 
 
